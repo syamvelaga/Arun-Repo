@@ -140,3 +140,14 @@ server_instance.delete("/user_management/:id/", async (request, response) => {
     response.status(200).send("User Deleted Successfully");
   }
 });
+
+server_instance.delete("/user_management/", async (request, response) => {
+  try {
+    const deleteAllUsersQuery = `DELETE FROM user;`;
+    await dataBase.run(deleteAllUsersQuery);
+    response.status(200).send("All users deleted successfully");
+  } catch (error) {
+    console.error("Error deleting users:", error);
+    response.status(500).send("An error occurred while deleting users");
+  }
+});
